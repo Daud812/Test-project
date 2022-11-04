@@ -38,14 +38,14 @@ class BugsController < ApplicationController
       end
    end
 
-   def destroy
-    @bug = Bug.find(params[:id])
-    respond_to do |format|
-      if @bug.destroy
-      format.html {redirect_to bug_path,notice:"Bug was deleted"  }
+    def destroy
+      @bug = Bug.find(params[:id])
+      respond_to do |format|
+        if @bug.destroy
+         format.html {redirect_to bugs_path,notice:"Bug was deleted"  }
+        end
+      end
     end
-   end
-  end
 
 
     
