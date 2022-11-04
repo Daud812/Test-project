@@ -1,0 +1,16 @@
+<%= link_to "Projects", projects_path%>
+
+<h1>Bugs</h1>
+<br>
+
+
+<%= link_to "create new bug", new_bug_path%>
+
+<% @bug.each do |bug| %>
+    <h3><%= link_to bug.titel,bug_path(bug.id)%></h3>
+    <p><%= bug.body%></p>
+    <%= link_to "Edit", edit_bug_path(bug.id)%>
+    <%= link_to "Delete", bugs_path(bug.id),method: :delete ,data:{confirm: "are you sure?"}%>
+
+<% end %>
+

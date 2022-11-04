@@ -1,0 +1,14 @@
+<%= link_to "Bugs", bugs_path%>
+
+<h1>Projects</h1>
+<br>
+
+
+<%=link_to "create new project",new_project_path %>
+<% @project.each do |project| %>
+    <h3><%=link_to project.titel,project_path(project)%></h3>
+    <p><%= project.body%></p>
+<%=link_to "Edit",edit_project_path(project) %>
+<%=link_to "Delete",project_path(project) ,method: :delete,data:{confirm:'are you sure?'} %>
+
+<% end %>
