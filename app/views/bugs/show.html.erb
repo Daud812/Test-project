@@ -1,4 +1,20 @@
-
-<h2><%=@bug.titel %></h2>
-<p><%=@bug.body %></p>
+<table>
+  <thead>
+    <tr>
+      <th>Titel</th>
+      <th>Body</th>
+      <th>Type</th>
+      <th>Status</th>
+    <th colspan="6"></th>
+    </tr>
+  </thead>
+<tbody>
+    <tr>
+    <td><h3><%= @bug.titel%></h3></td>
+    <td><p><%= @bug.body%></p></td>
+    <td><p><%= @bug.bugtype%></p></td>
+    <td><p><%= @bug.status%></p></td>
+    </tr>
+</tbody>
+</table>
 <%=link_to "Back",bugs_path %>

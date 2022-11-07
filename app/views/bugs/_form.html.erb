@@ -9,7 +9,19 @@
       <%= form.label :body %>
       <%= form.text_area :body, id: :project_body %>
     </div>
-  
+    
+ 
+    <div class="field">
+    <%= form.label :Bug_type %>
+    <%= form.select :bugtype, options_for_select(Bug.bugtypes.map {|key, value| [key.titleize, Bug.bugtypes.key(value)]}, @bug.bugtype) %>
+    </div>
+
+    <div class="field">
+    <%= form.label :status %>
+    <%= form.select(:status, Bug.statuses.keys) %>
+    </div>
+
+
     <div class="actions">
       <%= form.submit %>
     </div>

@@ -6,27 +6,12 @@
 
 <%= link_to "create new bug", new_bug_path%>
 
-<table>
-  <thead>
-    <tr>
-      <th>Titel</th>
-      <th>Body</th>
-      <th>Type</th>
-      <th>Status</th>
-    <th colspan="4"></th>
-    </tr>
-  </thead>
-<tbody>
 <% @bug.each do |bug| %>
-    <tr>
-    <td><h3><%= link_to bug.titel,bug_path(bug.id)%></h3></td>
-    <td><p><%= bug.body%></p></td>
-    <td><p><%= bug.bugtype%></p></td>
-    <td><p><%= bug.status%></p></td>
-    <td><%= link_to "Edit", edit_bug_path(bug.id)%></td>
-    <td><%= link_to "Delete", bug_path(bug),method: :delete ,data:{confirm: "are you sure?"}%></td>
-    </tr>
+    
+    <h3><%= link_to bug.titel,bug_path(bug.id)%></h3>
+    <p><%= bug.body%></p>
+    <p><%= link_to "Edit", edit_bug_path(bug.id)%>
+    <%= link_to "Delete", bug_path(bug),method: :delete ,data:{confirm: "are you sure?"}%></p>
 <% end %>
-</tbody>
-</table>
+
 
