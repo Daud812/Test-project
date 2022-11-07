@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20221107102123) do
+ActiveRecord::Schema.define(version: 20221107135047) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,6 +22,8 @@ ActiveRecord::Schema.define(version: 20221107102123) do
     t.datetime "updated_at", null: false
     t.integer "bugtype", default: 0
     t.integer "status", default: 0
+    t.bigint "project_id"
+    t.index ["project_id"], name: "index_bugs_on_project_id"
   end
 
   create_table "projects", force: :cascade do |t|
@@ -45,8 +47,10 @@ ActiveRecord::Schema.define(version: 20221107102123) do
     t.inet "last_sign_in_ip"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "user_type", default: 0
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "bugs", "projects"
 end

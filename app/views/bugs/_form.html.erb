@@ -21,6 +21,10 @@
     <%= form.select(:status, Bug.statuses.keys) %>
     </div>
 
+    <div class="field">
+    <%= form.label :project_id %>
+    <%= form.select(:project_id, Project.ids) %>
+    </div>
 
     <div class="actions">
       <%= form.submit %>

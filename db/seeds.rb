@@ -14,6 +14,7 @@ puts "3 projects created"
     Bug.create!(
     titel: "Bug #{bug}",
     body:"hello i am a bug in thr project ",
+    project_id: Project.last.id
     )
 end  
 puts "3 bugs created"
