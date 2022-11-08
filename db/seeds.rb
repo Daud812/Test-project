@@ -10,11 +10,11 @@
     )
 end  
 puts "3 projects created"
-3.times do |bug|
+5.times do |bug|
     Bug.create!(
     titel: "Bug #{bug}",
     body:"hello i am a bug in thr project ",
     project_id: Project.last.id
     )
 end  
-puts "3 bugs created"
+puts "5 bugs created"

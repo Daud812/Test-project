@@ -2,4 +2,32 @@
 
 <h2><%=@project.titel %></h2>
 <p><%=@project.body %></p>
-<%=link_to "Back",projects_path %>
+
+<h2>Bugs:</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Titel</th>
+      <th>Body</th>
+      <th>Type</th>
+      <th>Status</th>
+    <th colspan="6"></th>
+    </tr>
+  </thead>
+  <tbody>
+   <% @project.bugs.each do |p| %>
+
+    <tr>
+    <td><h3><%= p.titel%></h3></td>
+    <td><p><%= p.body%></p></td>
+    <td><p><%= p.bugtype%></p></td>
+    <td><p><%= p.status%></p></td>
+    <td><%= link_to "Edit", edit_project_bug_path(@project, p)%></td>
+    <td><%= link_to "Delete", project_bug_path(@project, p), method: :delete ,data:{confirm: "are you sure?"}%></td>
+    </tr>
+
+    <% end %>
+   </tbody>
+</table>
+<%= link_to "create new bug", new_project_bug_path(@project)%>

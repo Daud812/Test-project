@@ -1,32 +1,27 @@
-<%= form_with(model: bug, local: true) do |form| %>
- 
-    <div class="field">
-      <%= form.label :titel %>
-      <%= form.text_field :titel, id: :project_titel %>
-    </div>
+<%= form_with(model: @bug,url: project_bugs_path, local: true) do |form| %>
+  <%= form.hidden_field :project_id, value: params[:project_id] %>
+  <div class="field">
+    <%= form.label :titel %>
+    <%= form.text_field :titel, id: :project_titel %>
+  </div>
+
+  <div class="field">
+    <%= form.label :body %>
+    <%= form.text_area :body, id: :project_body %>
+  </div>
   
-    <div class="field">
-      <%= form.label :body %>
-      <%= form.text_area :body, id: :project_body %>
-    </div>
-    
- 
-    <div class="field">
-    <%= form.label :Bug_type %>
-    <%= form.select :bugtype, options_for_select(Bug.bugtypes.map {|key, value| [key.titleize, Bug.bugtypes.key(value)]}, @bug.bugtype) %>
-    </div>
 
-    <div class="field">
-    <%= form.label :status %>
-    <%= form.select(:status, Bug.statuses.keys) %>
-    </div>
+  <div class="field">
+  <%= form.label :bugtype %>
+  <%= form.select(:bugtype, Bug.bugtypes.keys) %>
+  </div>
 
-    <div class="field">
-    <%= form.label :project_id %>
-    <%= form.select(:project_id, Project.ids) %>
-    </div>
+  <div class="field">
+  <%= form.label :status %>
+  <%= form.select(:status, Bug.statuses.keys) %>
+  </div>
 
-    <div class="actions">
-      <%= form.submit %>
-    </div>
-  <% end %>
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
