@@ -15,11 +15,13 @@
   <%= form.label :bugtype %>
   <%= form.select(:bugtype, Bug.bugtypes.keys) %>
   </div>
-
+  <% if @bug.bugtype=="feature" %> 
   <div class="field">
   <%= form.label :status %>
   <%= form.select(:status, Bug.statuses.keys) %>
   </div>
+  <% end %>
+  
 
   <div class="actions">
     <%= form.submit %>
