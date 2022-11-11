@@ -1,29 +1,63 @@
-<h1>Edit Bug</h1>
+  <h1>Edit Bug</h1>
+  <% if current_user.user_type == "qa"%>
 
-<%= form_with(model: @bug,url: project_bug_path, local: true) do |form| %>
-    <%= form.hidden_field :project_id, value: params[:project_id] %>
-    <div class="field">
-      <%= form.label :titel %>
-      <%= form.text_field :titel, id: :project_titel %>
-    </div>
+    <%= form_with(model: @bug,url: project_bug_path) do |form| %>
+        <%= form.hidden_field :project_id, value: params[:project_id] %>
+        <div class="field">
+          <%= form.label :titel %>
+          <%= form.text_field :titel, id: :project_titel %>
+        </div>
+      
+        <div class="field">
+          <%= form.label :body %>
+          <%= form.text_area :body, id: :project_body %>
+        </div>
+        
+      
+        <div class="field">
+        <%= form.label :bugtype %>
+        <%= form.select(:bugtype, Bug.bugtypes.keys) %>
+        </div>
+
   
-    <div class="field">
-      <%= form.label :body %>
-      <%= form.text_area :body, id: :project_body %>
-    </div>
+      
+     
     
-  
-    <div class="field">
-    <%= form.label :bugtype %>
-    <%= form.select(:bugtype, Bug.bugtypes.keys) %>
-    </div>
-  
-    <div class="field">
-    <%= form.label :status %>
-    <%= form.select(:status, Bug.statuses.keys) %>
-    </div>
-  
-    <div class="actions">
-      <%= form.submit %>
-    </div>
+        <div class="field">
+        <%= form.label :developers %>
+          <%= form.select :developer_id, User.developer.map { |p| [ p.name,p.id]}%>
+      
+        </div>
+      
+        <div class="actions">
+          <%= form.submit %>
+        </div>
+      <% end %>
+
+
+
+    <% elsif current_user.user_type == "developer"%>
+    <%= form_with(model: @bug,url: project_bug_path) do |form| %>
+    
+      <div class="field">
+      <%= form.label :status %>
+  <% if @bug.bugtype == "bug"%>
+      <%= form.select(:status, Bug.statuses.except("completed").keys) %>
+      
+      <%else%>
+      <%= form.select(:status, Bug.statuses.except("resolved").keys) %>
+      </div>
   <% end %>
+    <div class="actions">
+    <%= form.submit %>
+     </div>
+     
+
+    <% end %>
+
+
+
+<% end %>
+
+
+    

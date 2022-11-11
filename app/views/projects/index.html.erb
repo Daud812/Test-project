@@ -1,13 +1,18 @@
 
 <h1>Projects</h1>
 <br>
-
-
+<% if can? :create, Project%>
 <%=link_to "create new project",new_project_path %>
+<%end%>
 <% @project.each do |project| %>
     <h3><%=link_to project.titel,project_path(project)%></h3>
     <p><%= project.body%></p>
+
+<% if can? :update, Project%>
 <%=link_to "Edit",edit_project_path(project) %>
+<% end %>
+<% if can? :destroy, Project%>
 <%=link_to "Delete",project_path(project) ,method: :delete,data:{confirm:'are you sure?'} %>
+<% end %>
 
 <% end %>

@@ -1,17 +1,20 @@
 class ProjectsController < ApplicationController
+    #before_action :set_project, only: %i[ show edit update destroy]
+    load_and_authorize_resource
 
-
-    def home
-    end
     def index
     @project =Project.all
+
     end
 
+   
     def new 
+  
     @project=Project.new
     end
 
     def create
+        
     @project=Project.new(project_params)
     respond_to do |format|
         if @project.save
@@ -23,17 +26,16 @@ class ProjectsController < ApplicationController
     end 
 
     def show 
-        @project=Project.find(params[:id])
+        @developer=User.developer
+    
     end
    
 
     def edit 
-        @project=Project.find(params[:id])
     end
 
 
     def update
-        @project=Project.find(params[:id])
         respond_to do |format|
             if @project.update(project_params)
                format.html {redirect_to projects_path,notice: "Project was updated"  }
@@ -44,7 +46,7 @@ class ProjectsController < ApplicationController
     end 
 
     def destroy
-        @project=Project.find(params[:id])
+        
         respond_to do |format|
             if @project.destroy
                format.html {redirect_to projects_path,notice: "Project was successfully removed" }
@@ -54,6 +56,11 @@ class ProjectsController < ApplicationController
 
 
 
+
+
+    def set_project
+        @project=Project.find(params[:id])
+    end
 
 
     def project_params

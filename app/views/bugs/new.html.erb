@@ -1,2 +1,39 @@
 <h1>New Bug</h1>
-<%= render 'form',bug: @bug%>
+<%= form_with(model: @bug,url: project_bugs_path) do |form| %>
+    <%= form.hidden_field :project_id, value: params[:project_id] %>
+    <%= form.hidden_field :creator_id, value: params[:creator_id] %>
+  
+  
+    <div class="field">
+      <%= form.label :titel %>
+      <%= form.text_field :titel, id: :project_titel %>
+    </div>
+  
+    <div class="field">
+      <%= form.label :body %>
+      <%= form.text_area :body, id: :project_body %>
+    </div>
+    
+    
+    <div class="field">
+    <%= form.label :bugtype %>
+    <%= form.select(:bugtype, Bug.bugtypes.keys) %>
+    </div>
+  
+ 
+    <div class="field">
+    <%= form.label :developers %>
+      <%= form.select :developer_id, User.developer.map { |p| [ p.name,p.id]},multiple: true%>
+  
+    </div>
+     
+    
+  
+  
+  
+    
+  
+    <div class="actions">
+      <%= form.submit %>
+    </div>
+  <% end %>

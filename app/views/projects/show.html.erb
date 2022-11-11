@@ -12,22 +12,56 @@
       <th>Body</th>
       <th>Type</th>
       <th>Status</th>
-    <th colspan="6"></th>
+      
+      
+    <th colspan="7"></th>
     </tr>
   </thead>
   <tbody>
-   <% @project.bugs.each do |p| %>
+        <% @project.bugs.each do |p| %>
 
-    <tr>
-    <td><h3><%= p.titel%></h3></td>
-    <td><p><%= p.body%></p></td>
-    <td><p><%= p.bugtype%></p></td>
-    <td><p><%= p.status%></p></td>
-    <td><%= link_to "Edit", edit_project_bug_path(@project, p)%></td>
-    <td><%= link_to "Delete", project_bug_path(@project, p), method: :delete ,data:{confirm: "are you sure?"}%></td>
-    </tr>
+          <tr>
+              <td><h3><%= p.titel%></h3></td>
+              <td><p><%= p.body%></p></td>
+              <td><p><%= p.bugtype%></p></td>
+              <td><p><%= p.status%></p></td>
+              <% if current_user.user_type == "developer"%>
+                <% if can? :update, Bug.statuses%>
+                  <td><%= link_to "Edit", edit_project_bug_path(@project, p)%></td>
+                  <%end%>
+                <%else%> 
+              <% if can? :update, Bug%>
+              <td><%= link_to "Edit", edit_project_bug_path(@project, p)%></td>
+              <%end%>
+              <%end%>
 
-    <% end %>
+              <% if can? :destroy, Bug%>
+              
+              <td><%= link_to "Delete", project_bug_path(@project, p), method: :delete ,data:{confirm: "are you sure?"}%></td>
+              <% end %>
+              
+          </tr>
+
+          <% end %>
+
+          
+          
    </tbody>
+   
+     
+    
 </table>
-<%= link_to "create new bug", new_project_bug_path(@project)%>
+
+  
+<% if can? :create, Bug%>
+<%= link_to "create new bug", new_project_bug_path(@project,creator_id: current_user.id)%>
+<%end%>
+<h2>Developers</h2>
+<% @developer.each do |d|  %>
+  <h4><%=d.name%></h4>
+  <p><%=button_to "Add",{ action: "create" },data: { confirm: "Are you sure?" } ,id:@developer.id %></p>
+  <%end%>
+
+
+<p><%=link_to "Back",projects_path %></p>
+

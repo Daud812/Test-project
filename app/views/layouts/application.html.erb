@@ -11,10 +11,12 @@
   <body>
   <p id="notice"><%= notice %></p>
   <p class="alert"><%= alert %></p>
+  <p><%= link_to "Root", root_path%></p>
+
   <p><%= link_to "Projects", projects_path%></p>
  
 
-
+  
   <% if current_user %>
     <%= link_to "Logout", destroy_user_session_path, method: :delete %>
   <% else %>

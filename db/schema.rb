@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20221108152030) do
+ActiveRecord::Schema.define(version: 20221109150552) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,6 +23,8 @@ ActiveRecord::Schema.define(version: 20221108152030) do
     t.integer "bugtype", default: 0
     t.integer "status", default: 0
     t.bigint "project_id"
+    t.integer "creator_id"
+    t.integer "developer_id"
     t.index ["project_id"], name: "index_bugs_on_project_id"
   end
 
@@ -62,6 +64,8 @@ ActiveRecord::Schema.define(version: 20221108152030) do
   end
 
   add_foreign_key "bugs", "projects"
+  add_foreign_key "bugs", "users", column: "creator_id"
+  add_foreign_key "bugs", "users", column: "developer_id"
   add_foreign_key "companies", "projects"
   add_foreign_key "companies", "users"
 end

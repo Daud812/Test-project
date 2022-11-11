@@ -1,8 +1,5 @@
 class BugsController < ApplicationController
-# before_action :find_project_id
-    def index
-        @bug =Bug.all
-    end
+
 
     def new
     
@@ -11,9 +8,12 @@ class BugsController < ApplicationController
     end
 
     def create
+ 
+
+
     @bug = Bug.new(bug_params)
      respond_to do |format|
-        if @bug.save
+        if @bug.save!
         format.html {redirect_to project_path(@bug.project_id),notice:"Bug was created"  }
         else
         format.html {render :new}
@@ -21,17 +21,13 @@ class BugsController < ApplicationController
       end
     end
 
-    def show
-    @bug = Bug.find(params[:id])
-    end
+  
 
     def edit
-    
       @bug = Bug.find(params[:id])
     end
 
     def update
-   
       @bug = Bug.find(params[:id])
       respond_to do |format|
         if @bug.update(bug_params)
@@ -64,6 +60,6 @@ class BugsController < ApplicationController
 
 
     def bug_params
-     params.require(:bug).permit(:titel,:body,:bugtype,:status, :project_id)
+     params.require(:bug).permit(:titel,:body,:bugtype,:status, :project_id,:creator_id,:developer_id)
     end
 end
